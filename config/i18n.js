@@ -13,6 +13,7 @@
  * https://github.com/mashpie/i18n-node#list-of-configuration-options
  *
  * Sails的内置国际化和本地化功能的配置。有关更多信息，请参阅国际化概念部分。
+ * 详细说明: https://github.com/linxiaowu66/sails-docs-zh-cn/blob/master/concepts/Internationalization/Locales.md
  */
 
 module.exports.i18n = {
