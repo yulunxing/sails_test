@@ -9,6 +9,12 @@
  * http://sailsjs.org/#!/documentation/concepts/ORM
  */
 
+/*
+*
+* 您的默认项目范围的模型设置。也可以在每个模型的基础上通过在该模型定义中提供相同名称的顶级属性来覆盖。
+* 有关更多详细信息，请参阅模型设置中的概念文档。这些选项通常在config / models.js配置文件中指定。
+* */
+
 module.exports.models = {
 
   /***************************************************************************
@@ -17,7 +23,8 @@ module.exports.models = {
   * connections (see `config/connections.js`)                                *
   *                                                                          *
   ***************************************************************************/
-  // connection: 'localDiskDb',
+  //默认值: connection: 'localDiskDb',
+  // 任何给定模型将使用的默认数据库连接，而没有配置的覆盖
 
   /***************************************************************************
   *                                                                          *
@@ -27,6 +34,42 @@ module.exports.models = {
   * See http://sailsjs.org/#!/documentation/concepts/ORM/model-settings.html  *
   *                                                                          *
   ***************************************************************************/
-  // migrate: 'alter'
+  //默认值: migrate: 'alter'
+  //Sails将如何尝试自动重建表/集合等。在你的架构
+
+  /*
+  * 模型属性是关于模型的基本信息。所谓的模型Person可能有属性叫firstName，lastName，phoneNumber，age，birthDate和emailAddress。
+  *
+  * */
+  //默认值: attributes: {}
+  // 关于模型的基本信息存储。请参阅属性。
+
+  /*
+   默认值: autoPK: true
+
+  * 例子
+  *
+  attributes: {
+   uuid: {
+   type: 'string',
+   primaryKey: true,
+   required: true
+   }
+   }
+  * */
+  //使用此属性作为记录的主键。每个模型只能有一个属性primaryKey。注意：除非autoPK设置为false ，否则不应该使用它。
+
+  //默认值: autoCreatedAt: true
+  // 在模型中切换属性createdAt的自动定义
+
+  //默认值: autoUpdatedAt: true
+  // 在模型中切换属性updatedAt的自动定义
+
+  //默认值: tableName: identity
+  //用于指定模型的数据库表名
+
+  //默认值: dynamicFinders: true
+  //切换动态查找器的自动创建
+
 
 };

@@ -17,6 +17,16 @@
  *
  * For more information on configuration, check out:
  * http://sailsjs.org/#!/documentation/reference/sails.config/sails.config.connections.html
+ *
+ *
+ * 适配器是您的Sails应用程序和某种存储（通常是数据库）之间的中间人，
+
+ 全局连接在connections.js位于项目目录中的文件中config配置。您还可以指定你的连接config/local.js或特定的环境配置文件。
+
+ Sails适配器已经为各种流行的数据库（如MySQL，Postgres和Mongo）编写。您可以在此处找到支持的适配器列表。
+ *
+ *
+ *
  */
 
 module.exports.connections = {
@@ -25,12 +35,31 @@ module.exports.connections = {
   *                                                                          *
   * Local disk storage for DEVELOPMENT ONLY                                  *
   *                                                                          *
-  * Installed by default.                                                    *
+  * Installed by default.
+   *
+   *
+   * 要使用sails-memory适配器（仅适用于开发），请先安装模块npm install sails-memory，然后在connections.js以下位置中定义：
+
+   以下是适配器配置文件示例
+
+   myApp/config/connections.js
+   * *
   *                                                                          *
   ***************************************************************************/
   localDiskDb: {
     adapter: 'sails-disk'
   },
+
+  /*
+  * 如果要设置memory为模型的默认适配器，则可以这样做。 myApp/config/models.js
+  * */
+  /*
+  *
+  * module.exports.models = {
+
+   connection: 'memory'
+   };
+  * */
 
   /***************************************************************************
   *                                                                          *
@@ -88,5 +117,34 @@ module.exports.connections = {
   * More adapters: https://github.com/balderdashy/sails                      *
   *                                                                          *
   ***************************************************************************/
+  /*
+  * 适配器的多个连接
+   您可以使用相同的适配器设置多个连接。例如，如果您有两个mysql数据库，则可以将其配置为：
+  *
+  * */
+  /*
+  *
+  * module.exports.connections = {
+   localMysql: {
+   adapter: 'sails-mysql',
+   user: 'root',
+   host: 'localhost',
+   database: 'someDbase'
+   },
+   remoteMysql: {
+   adapter: 'sails-mysql',
+   user: 'remoteUser',
+   password: 'remotePassword',
+   host: 'http://remote-mysql-host.com',
+   database: 'remoteDbase'
+   }
+   };
+  * */
+  /*
+  * 注意如果模型使用与适配器的任何连接，则将加载到该适配器的所有连接sails.lift，无论模型是否实际使用它们。
+  * 在上面的例子中，如果模型被配置成使用所述localMysql连接，则两个localMysql和remoteMysql将试图在运行时进行连接。
+  * 因此，良好的做法是根据环境将连接配置分开，并将其保存到适当的环境特定配置文件中，否则请注释您不想活动的任何连接。
+  * */
+
 
 };

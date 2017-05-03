@@ -40,6 +40,13 @@
  * For more information on this configuration file, including info on CSRF + CORS, see:
  * http://sailsjs.org/#!/documentation/reference/sails.config/sails.config.csrf.html
  *
+ *
+ Sails内置CSRF保护中间件的配置。这些选项通常在config/csrf.js配置文件中设置。有关详细的使用说明，请参阅安全性部分中的跨站点请求伪造文档。
+ 此选项可保护您的Sails应用免受跨站点请求伪造（或CSRF）攻击。
+ 一个潜在的攻击者不仅需要一个用户的会话cookie，而且还需要这个时间戳的秘密CSRF令牌，当用户访问您应用的域上的URL时，该密钥被刷新/授予。
+ 这样就可以确定你的用户的请求没有被劫持，而且他们的请求是有意的和合法的。
+ *
+ *
  */
 
 /****************************************************************************
@@ -48,7 +55,9 @@
 *                                                                           *
 ****************************************************************************/
 
-// module.exports.csrf = false;
+//默认值: module.exports.csrf = false;
+// 默认情况下，CSRF保护被禁用，以促进开发。
+// 要打开它，只要设置sails.config.csrf为true，或者为了更大的灵活性，可以使用下面描述的任何属性来指定字典。
 
 /****************************************************************************
 *                                                                           *
@@ -57,8 +66,17 @@
 * settings override the general CORS settings in your config/cors.js file.  *
 *                                                                           *
 ****************************************************************************/
-
+// 默认值: grantTokenViaAjax: true,
+// 是否激活/ csrfToken路由，这将返回当前的CSRF令牌值，然后可以在AJAX请求中使用。
+// 默认值: origin: ''
+// 以逗号分隔的起始列表，可以通过/ csrfToken影子路线访问CSRF令牌。
+// 这是从其他独立CORS设置，这并不适用于/ csrfToken路线。
 // module.exports.csrf = {
 //    grantTokenViaAjax: true,
 //    origin: ''
 // }
+
+//默认值: csrf.routesDisabled:""
+// 禁用CSRF保护的路由数组或以逗号分隔的路由列表。
+// 可以使用带有Express式通配符（例如'/foo/:id'）和正则表达式（例如 /user\/\d+/）的路由。
+// 不要不包括HTTP动词（如POST或PUT与路线） -禁用CSRF的路线始终适用于该路由的地址的所有动词。

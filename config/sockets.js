@@ -8,6 +8,9 @@
  *
  * For more information on sockets configuration, including advanced config options, see:
  * http://sailsjs.org/#!/documentation/reference/sails.config/sails.config.sockets.html
+ *
+ * 这些配置选项可以透明地访问由Sails封装的WebSocket / pubsub服务器Socket.io。
+ *
  */
 
 module.exports.sockets = {
@@ -38,17 +41,26 @@ module.exports.sockets = {
   * via port 6379                                                            *
   *                                                                          *
   ***************************************************************************/
-  // adapter: 'memory',
+
+  /*
+  *
+  * 队列socket.io将用于传递消息。可以设置为'memory'或'socket.io-redis'。
+  * 如果'socket.io-redis'指定了，你应该运行npm install socket.io-redis@~1.0.0 --save --save-exact。
+  *
+  * */
+
+
+  //默认值: adapter: 'memory',
 
   //
   // -OR-
   //
 
   // adapter: 'socket.io-redis',
-  // host: '127.0.0.1',
-  // port: 6379,
-  // db: 0,
-  // pass: '<redis auth password>',
+  // host: '127.0.0.1',//您的redis实例的主机名。
+  // port: 6379,//你的redis实例的端口。
+  // db: 0, //要在redis实例中使用的数据库的名称。
+  // pass: '<redis auth password>',//您的redis实例的密码。
 
 
 
@@ -65,6 +77,12 @@ module.exports.sockets = {
   *                                                                          *
   ***************************************************************************/
 
+  /*
+  *
+  * 是否公开GET /__getcookie设置仅HTTP会话cookie 的路由。
+  * 默认情况下，如果它检测到要连接到跨原始服务器，Sails套接字客户端（sails.io.js）将在开始连接之前向该端点发送JSONP请求。
+  * 对于可能使用第三方Cookie的用户代理，这允许sails.io.js使用用户现有的会话cookie（例如，如果已经登录）将套接字连接到跨原始Sails服务器。
+  * */
   // grant3rdPartyCookie: true,
 
 
@@ -106,6 +124,24 @@ module.exports.sockets = {
   * app's security.                                                          *
   *                                                                          *
   ***************************************************************************/
+  /*
+  *
+  * 每次新的客户端套接字尝试连接到可以用于拒绝或允许传入连接的服务器时运行的功能。
+  * 有助于调整生产环境以防止DoS攻击，或者基于业务特定的启发式拒绝socket.io连接
+  * （例如，如果来自竞争业务的stooges创建机器人以在聊天室中发布关于其商业产品的垃圾链接）。
+  * 要定义自己的自定义逻辑，请指定以下功能：
+  * beforeConnect: function (handshake, cb) {
+  *  //pass back true to allow, false to deny
+  *  return cb(null, true);
+  *  }
+  *  从Sails v0.11起，Sails不再阻止没有Cookie的传入套接字连接，而是自动授予Cookie（以及必要会话）。
+  *  如果一个请求的socket.io客户端不能接收到一个cookie（即制作一个跨原始的套接字。sails.io.jsio连接）
+  *  套接字客户端将自动发送一个CORS + JSONP请求，尝试获取一个之前的连接（grant3rdPartyCookie有关详细信息，请参阅该选项）。
+  *  在这种对抗性情况下，即使这种情况发生，Sails仍然会在连接时给予新的cookie，这样可以进行一次会话。
+  *
+  * */
+
+
   // beforeConnect: function(handshake, cb) {
   //   // `true` allows the connection
   //   return cb(null, true);
@@ -122,6 +158,14 @@ module.exports.sockets = {
   * disconnects                                                              *
   *                                                                          *
   ***************************************************************************/
+  /*
+  *
+  * 客户端套接字与服务器断开连接时运行的功能。
+  * 要定义自己的自定义逻辑，请指定一个函数afterDisconnect: function (session, socket, cb) {}。
+  *
+  * */
+
+
   // afterDisconnect: function(session, socket, cb) {
   //   // By default: do nothing.
   //   return cb();
@@ -136,6 +180,9 @@ module.exports.sockets = {
   * transport should be disabled.                                            *
   *                                                                          *
   ***************************************************************************/
+  /*
+  * 一系列允许的运输策略。这应该始终与您的套接字客户端（即sails.io.js）中的配置相匹配。有关帮助，请参阅配置sails.io.js库。
+  * */
   // transports: ["polling", "websocket"]
 
 };

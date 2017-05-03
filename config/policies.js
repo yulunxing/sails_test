@@ -49,3 +49,39 @@ module.exports.policies = {
 		// feed : ['isNiceToAnimals', 'hasRabbitFood']
 	// }
 };
+
+/*
+* 策略就像任何其他用于认证控制的系统。您可以通过策略允许或拒绝以细粒度访问。
+* 描述
+* 您的应用程序的ACL（访问控制列表）位于config / policies.js中。
+*
+* */
+/*
+* 例子
+*
+* // 默认所有行为需要登录
+ // 若某些行为不需要，则在下面声明
+ '*': 'isAuthenticated',
+
+ // 验证逻辑都不需要登录
+ // 用户创建后不再允许注册
+ AuthController: {
+ '*': true,
+ toRegister: 'userNotCreated'
+ },
+
+ // 文章显示逻辑不需要登录
+ ArticleController: {
+ index: 'userCreated',
+ show: 'userCreated'
+ },
+
+ CategoryController: {
+ getArticles: true
+ },
+
+ TagsController: {
+ getArticles: true
+ }
+*
+* */
