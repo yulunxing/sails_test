@@ -46,9 +46,10 @@ module.exports.connections = {
    * *
   *                                                                          *
   ***************************************************************************/
-  localDiskDb: {
+ /* localDiskDb: {
     adapter: 'sails-disk'
-  },
+  },*/
+
 
   /*
   * 如果要设置memory为模型的默认适配器，则可以这样做。 myApp/config/models.js
@@ -69,6 +70,20 @@ module.exports.connections = {
   * Run: npm install sails-mysql                                             *
   *                                                                          *
   ***************************************************************************/
+/*  localMysql: {
+    adapter: 'sails-mysql',
+    host: 'localhost',
+    user: 'root',
+    password: 'root',
+    database: 'temp'
+  }*/
+   someMysqlServer: {
+     adapter: 'sails-mysql',
+     host: 'localhost',
+     user: 'root', //optional
+     password: 'root', //optional
+     database: 'temp' //optional
+   },
   // someMysqlServer: {
   //   adapter: 'sails-mysql',
   //   host: 'YOUR_MYSQL_SERVER_HOSTNAME_OR_IP_ADDRESS',
