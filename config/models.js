@@ -19,9 +19,9 @@ module.exports.models = {
 
   connection: 'someMysqlServer',
   migrate: 'safe',
-  autoPK: false,
-  autoCreatedAt: true,
-  autoUpdatedAt: true
+  autoPK: false,// 当你在api/models的文件中,对某个字段设为primarykey: true 自增主键时,需要把autoPK 设为false
+  autoCreatedAt: true,//设为true时,需要在每个表中增加一个字段: createdAt sails.js在插入数据时,自动添加插入时间
+  autoUpdatedAt: true//设为true时,需要在每个表中增加一个字段: updatedAt sails.js修改数据时,自动添加修改时间
 
   /***************************************************************************
   *                                                                          *
