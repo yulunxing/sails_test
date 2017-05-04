@@ -2,7 +2,7 @@
  * Created by Administrator on 2017/5/4.
  */
 module.exports = {
-  tableName: 'user',
+  tableName: 'users',
   attributes: {
     id: {
       type: 'integer',
@@ -10,19 +10,16 @@ module.exports = {
       primarykey: true
     },
     name: {
-      type: 'String',
-      required: true,
-      maxLength: 255
+      type: 'string',
+      required: true
     },
     email: {
-      type: 'String',
-      required: true,
-      maxLength: 128
+      type: 'string',
+      required: true
     },
     password: {
-      type: 'String',
-      required: true,
-      maxLength: 128
+      type: 'string',
+      required: true
     },
     class_id: {
       type: 'integer',

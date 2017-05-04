@@ -13,8 +13,10 @@ module.exports = {
 
     console.log('aassbb22');
 
-    User.find({name: 'hank'}).exec(function(err, userinfo){
+    Classes.find({id: 1}).exec(function(err, userinfo){
       if(err){
+        console.log('mysqlError');
+        console.log(err);
         res.notFound();
       } else {
         console.log('mysql');
@@ -24,3 +26,4 @@ module.exports = {
     });
   }
 };
+

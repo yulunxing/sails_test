@@ -18,7 +18,10 @@
 module.exports.models = {
 
   connection: 'someMysqlServer',
-  migrate: 'safe'
+  migrate: 'safe',
+  autoPK: false,
+  autoCreatedAt: true,
+  autoUpdatedAt: true
 
   /***************************************************************************
   *                                                                          *
